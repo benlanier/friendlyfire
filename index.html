@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>Friendly Fire</title>
+	<style type="text/css">
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	#trig {
+		width:200px;
+		height: 200px;
+		background: #0f0;
+	}
+	#mute {
+		width: 100px;
+		height: 100px;
+		background: #f00;
+	}
+	#game {
+		position: absolute;
+		width: 90%;
+		margin: 0 5%;
+		top: 10%;
+	}
+	</style>
+	<script src="viewporter.js"></script>
+</head>
+<body>
+	<div id="viewporter">
+	<audio id="bgm" src="bg.ogg" preload></audio>
+	<audio id="fx" src="fire.ogg"></audio>
+	<div id="trig"></div>
+	<div id="mute"></div>
+	
+		<img src="//placehold.it/500x500" id="game" />
+	
+	<script>
+	function gebi(s) {
+		return document.getElementById(s);
+	}
+	document.addEventListener("touchstart", function (e) {
+		e.preventDefault();
+		gebi("bgm").currentTime = 0;
+		gebi("bgm").play();
+	});
+	gebi("trig").addEventListener("touchstart", function (e) {
+		e.preventDefault();
+		gebi("fx").currentTime = 0;
+		gebi("fx").play();
+		e.stopPropagation();
+	});
+	gebi("bgm").addEventListener("ended", function (e) {
+		gebi("bgm").currentTime = 0;
+		gebi("bgm").play();
+	});
+	
+	gebi("mute").addEventListener("touchstart", function (e) {
+		e.preventDefault();
+		gebi("bgm").pause();
+		e.stopPropagation();
+	});
+
+	window.addEventListener("viewportchange", function (e) {
+		if (viewporter.isLandscape()) {
+			gebi("game").style["height"] = "90%";
+			gebi("game").style["width"] = "auto";
+		} else {
+			gebi("game").style["height"] = "auto";
+			gebi("game").style["width"] = "90%";
+		}
+	});
+</script>
+</div>
+</body>
+</html>

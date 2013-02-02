@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=0.6,maximum-scale=0.6,user-scalable=0,width=600" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>Friendly Fire</title>
+	<style type="text/css">
+		body {
+			margin: 0;
+			background: #000;
+		}
+		.bear {
+			-webkit-transition-property: top, left;
+			-webkit-transition-duration: 1s;
+			-webkit-transition-timing-function: linear;
+			transform-style: preserve-3d;
+			position: absolute;
+			top:0px;
+			left:0px;
+			width:100px;
+			height:128px;
+			background: url('brers.png');
+		}
+		#game {
+			position: absolute;
+			width: 500px;
+			height: 500px;
+			margin-left: 50px;
+			background: #322;
+			overflow: hidden;
+		}
+		#level {
+			background: #322;
+			margin: 0;
+			position:relative;
+			width: 500px;
+			height: 500px;
+			-webkit-transition-property: all;
+			-webkit-transition-duration: 1s;
+			-webkit-transition-timing-function: linear;
+		}
+		#levelc {
+			position: relative;
+		}
+		.player {
+			position: absolute;
+			top: 234px;
+			left: 234px;
+			-webkit-transition-property: all;
+			-webkit-transition-duration: 1s;
+			-webkit-transition-timing-function: linear;
+			z-index: 501;
+		}
+		#crosshair {
+			position: absolute;
+			visibility: hidden;
+			z-index: 1000;
+		}
+		.bullet {
+			background: url('bullet.png');
+			width: 18px;
+			height: 18px;
+			position: absolute;
+			-webkit-transition-property: all;
+			-webkit-transition-timing-function: linear;
+			
+			z-index: 99;
+		}
+		.lamp {
+			background: url('lamp.png');
+			width: 121px;
+			height: 106px;
+			position: absolute;
+			top: 1800px;
+			left: 200px;
+			z-index: 500;
+		}
+		.bomb {
+			background: url('bomb.png');
+			width: 18px;
+			height: 24px;
+			position: absolute;
+			z-index: 502;
+		}
+		.bomblit {
+			background: url('bomb_lit.png');
+			width: 18px;
+			height: 24px;
+			position: absolute;
+			z-index: 501;
+		}
+		#mybomb {
+			background: url('bomb.png');
+			width: 18px;
+			height: 24px;
+			position: absolute;
+			left: 242px;
+			top: 238px;
+			z-index: 502;
+			visibility: hidden;
+		}
+		.blast {
+			background: url('blast.png');
+			width: 92px;
+			height: 93px;
+			position: absolute;
+			z-index: 503;
+		}
+		#form {
+			position:absolute;
+			left: 50px;
+			top: 500px;
+			width: 500px;
+			padding: 0;
+			font: 12px sans-serif;
+		}
+		#myName {
+			font: 20px sans-serif;
+			margin: 0;
+			width: 25%;
+		}
+		#myChat {
+			font: 20px sans-serif;
+			margin: 0;
+			width: 50%;
+		}
+		#sendChat {
+			font: 20px sans-serif;
+			margin: 0;
+			width: 20%;
+		}
+		#chat {
+			height: 250px;
+			overflow: scroll;
+		}
+		
+		.statusMsg {
+			background-color: #ff0;
+			padding: 5px;
+		}
+		.chatMsg {
+			background-color: #faf;
+			padding: 5px;
+		}
+
+	</style>
+	<script src="/bundle.js"></script>
+	<script src="viewporter.js"></script>
+	<!-- <script src="viewporter.native.js"></script> -->
+</head>
+<body>
+<!-- <div id="bears"></div> -->
+<div id="viewporter">
+<div id="game">
+<img id="crosshair" src="crosshair.png">
+<div id="level">
+	<!--<img class="player" src="//placehold.it/32/ff0000">-->
+<canvas id="levelc" width="2000" height="2000">
+	You need a modern browser to play this game.
+</canvas>
+<!-- <div class="lamp"></div> -->
+</div>
+
+<div id="mybomb"></div>
+
+</div>
+
+<div id="form">
+	<input id="myName" type="text" value="hellO">	
+	<input id="myChat" type="text" value="saysom">
+	<button id="sendChat">chat</button>
+	<div id="chat">
+		<!--
+		<div class="statusMsg">
+This is a log of things that happened.
+</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="statusMsg">
+This is a log of things that happened.
+</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	<div class="chatMsg"><b>jon123</b>: u hax</div>
+	
+		<div class="statusMsg">
+This is a log of things that happened.
+</div>
+<div class="chatMsg"><b>jon123</b>: u hax</div> -->
+	</div>
+</div>
+
+</div>
+
+<!-- <div class="bear"></div> -->
+<!--<div id="result"></div>
+<input type="text" name="inp" id="inp"><button id="go">yeah</button>-->
+<script>
+viewporter.preventPageScroll = true;
+/*
+document.addEventListener("click", function (e) {
+	var l = document.getElementById("level");
+	l.style["left"] = "200px";
+	l.style["top"] = "200px";
+	console.log("hi");
+})
+*/
+/*document.addEventListener("click", function (e) {
+	var b = document.getElementsByClassName("bear")[0];
+	if (e.pageX < parseInt(b.style["left"].substring(0, b.style["left"].length-2)) - 50) {
+		b.style["-webkit-transform"] = "rotateY(180deg)";
+	} else {
+		b.style["-webkit-transform"] = "rotateY(0)";
+	}
+	b.style["left"] = (e.pageX - 50) + "px";
+	b.style["top"] = (e.pageY - 64) + "px";
+});*/
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "friendlyfire",
+  "version": "0.0.3",
+  "dependencies": {
+    "shoe": "0.0.7",
+    "ecstatic": "0.1.6",
+    "dnode": "1.0.1"    
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
